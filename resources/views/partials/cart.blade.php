@@ -7,4 +7,5 @@
 	      	</a>
 	    </li>
       </ul>
+      {{-- {{session('carrito')}} --}}
    </div>

@@ -25,6 +25,8 @@ Route::get('/shop/index', 'ProductController@index');
 Route::get('/shop/index/order/{order}', 'ProductController@order');
 Route::post('/shop/index', 'ProductController@cart');
 Route::get('/cart', 'CartController@index');
+Route::post('/mija', 'ProductController@destroy');
+Route::post('/destruir', 'ProductController@destroyAll');
 
 
 // muestra todos los productos
@@ -33,8 +35,8 @@ Route::get('/admin/products', 'Admin\ProductsController@index');
 //muestra cada producto individualmete
 Route::get('/admin/products/{id}', 'Admin\ProductsController@show');
 
-Route::get('/categories', 'CategoriesController@index');
-Route::get('/category/{id}', 'CategoriesController@show');
+Route::get('admin/categories', 'CategoriesController@index');
+Route::get('admin/categories/{id}', 'CategoriesController@show');
 
 Route::get('/admin/product/create', 'Admin\ProductsController@create');
 Route::post('/admin/product/create', 'Admin\ProductsController@store');

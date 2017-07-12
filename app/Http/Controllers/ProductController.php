@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    // public $carrito=[]
     /**
      * Display a listing of the resource.
      *
@@ -17,28 +18,39 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $products=Product::all();
+        $products=Product::all();
         $products=Product::paginate(12);
         $categorias=Categorie::all();
-// 'urlImage',
+    // 'urlImage',
         return view('shop.index', compact('products',  'categorias'));
     }
+
+
+
+
     public function cart(Request $request)
     {
         
         $products=Product::paginate(12);
         $categorias=Categorie::all();
         
-    
+
         $productoElegido=$request->id;
-        $product=Product::find($productoElegido);    
-        dd($product);
-        $product=Cart::create([
-            'title'=>$request->input('title'),
-            'price'=>$request->input('price'),
-            //todo
-            'qty'=>$request->input('qty')
-            ]);
+        session()->push('carrito', $productoElegido);
+        $carrito=[];
+
+        //$product=Product::find($productoElegido);    
+        
+//usuario-    compra-item-producto
+      //  session(['cart'=>[$product,'otro producto']]); 
+
+
+        // $product=Cart::create([
+        //     'title'=>$request->input('title'),
+        //     'price'=>$request->input('price'),
+        //     //todo
+        //     'qty'=>$request->input('qty')
+        //     ]);
         
         
         
@@ -50,78 +62,32 @@ class ProductController extends Controller
     {
         // $products=Product::all();
         $products=Product::orderBy($order)->paginate(12);
+        $categorias=Categorie::all();
 
-        return view('shop.index', compact('products', 'urlImage'));
+        return view('shop.index', compact('products', 'urlImage', 'categorias'));
     }
-    public function test()
-    {
-        
-        return view('test');
-    }
+   
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    public function destroy(Request $request)
     {
-        //
+        dd(1);
+        $request->session()->forget('carrito');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroyAll(Request $request)
     {
-        //
+        if (session('carrito')) {
+           $request->session()->flush();
+        }
+        
+        return redirect('shop/index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }

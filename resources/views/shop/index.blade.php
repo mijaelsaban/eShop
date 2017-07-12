@@ -1,13 +1,66 @@
-
+{{-- {{var_dump(session('carrito'))  }} --}}
 @extends('layouts.app')
 {{-- @extends('layouts.master') --}}
 @section('title')
-	Laravel shopping cart
+	Laravel eShop
 @endsection
 
-{{-- {{var_dump(request()->id)}} --}}
-{{-- {{var_dump(request()->all())}} --}}
+@php
+  $cart=session('carrito');   
+@endphp 
+
 @section('content')
+    @if (count(session('carrito')))
+    <form class="" action="/destruir" method="post">
+    {{ csrf_field() }}
+    <button class="btn btn-danger">Destruir CARRITO</button>
+    </form>
+@endif
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <i class="material-icons">shopping_cart</i> 
+      <span class="badge"> {{ count(session('carrito')) }} </span>
+       <a href="/cart">Shopping Cart</a>
+
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Tus Compras</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        @if (session('carrito'))
+        @foreach ($cart as $car)
+        <p>{{$car}}</p>
+     
+
+            <form  class="" action="/mija" method="post">
+            {{ csrf_field() }}
+
+               <button class="btn btn-success" type="submit" name="" value={{ $car }}>
+                  <i style='font-size: 20px; float: right' class="material-icons">remove_shopping_cart</i>   
+               </button> 
+            </form>
+
+        </span></a>
+        @endforeach
+        @endif
+
+
+      </ul>
+      <form class="navbar-form navbar-left">
+        <button type="submit" class="btn btn-success">Comprar</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 <div class="jumbotron">
   <h1>Biemvenido!</h1>
@@ -20,11 +73,9 @@
   <div class="container"></div>
     <ul class="nav nav-pills">
       <li role="presentation" class="active"><a href="#">Todos Los Productos</a></li>
-      <li role="presentation"><a href="#">{{ $categorias->pluck('name')[0] }}</a></li>
-      <li role="presentation"><a href="#">{{ $categorias->pluck('name')[1] }}</a></li>
-      <li role="presentation"><a href="#">{{ $categorias->pluck('name')[2] }}</a></li>
-      <li role="presentation"><a href="#">{{ $categorias->pluck('name')[3] }}</a></li>
-    </ul>
+     @foreach ($categorias as $categoria)
+       <li role="presentation"><a href="#">{{ $categoria->name }}</a></li>
+     @endforeach
   </div>
 
 <form>   
@@ -32,10 +83,10 @@
     
     <select class="form-control" id="exampleSelect1">
       <option>-Filtrar Por-</option>
-      <option>Ordenar Por Precio Asc</a></option>
-      <option>Ordenar Por Precio Desc</option>
-      <option>Ordenar Por Nombre Asc</option>
-      <option>Ordenar Por Nombre Desc</option>
+      <option value="price">Ordenar Por Precio Asc</a></option>
+      <option value="price">Ordenar Por Precio Desc</option>
+      <option value="title">Ordenar Por Nombre Asc</option>
+      <option value="title">Ordenar Por Nombre Desc</option>
     </select>
   </div>
 </form>
@@ -83,7 +134,18 @@
       </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+  
+  <script type="text/javascript">
+  window.addEventListener('load', function(){
+       var select = document.getElementById('exampleSelect1');
+        select.onchange=function(){
+        console.log(this.value);
+        location.replace('http://localhost:8000/shop/index/order/'+this.value );
+    }
+  });
+
+   
+  </script>
 @endsection
 
 

@@ -8,10 +8,11 @@
 
 	<h1>Carrito de Compras</h1>
 	<h2><a href="/shop/index">Home</a><i class="material-icons">home</i></h2>
-	  <ul class="nav navbar-nav">
+	  <ul style="margin: auto;" class="nav navbar-nav">
 	    <li><i class="material-icons">shopping_cart</i> 
-	      <span class="badge"> {{ 0 }} </span>
-	      Shopping Cart</li>
+	      <span class="badge"> {{ count(session('carrito')) }} </span>
+	      Shopping Cart
+	    </li>
 	   </ul>
 	
 	<table  class="table table-responsive table-bordered table-striped ">
@@ -24,37 +25,30 @@
 				<th>Acciones</th>
 			</tr>
 		</thead>
-@endsection
-		{{-- <tbody>
+
+		 <tbody>
 			@forelse($productos as $producto)
 				<tr>
 					<td>
 						<a href="/admin/products/{{$producto->id}}">{{ $producto->title }}</a>
 					</td>
-					<td>
+					<td class="price">
 						{{ $producto->price  }}
 					</td>
-					<td>
-						{{ $producto->description  }}
+					<td class="qty">
+						<input style="width: 40px;" type="number" name="qty" value="1">
 					</td>
-					<td>
-						{{ $producto->imagePath  }}
+					<td class="total">
+						{{ $producto->price * 4  }}
 					</td>
-					<td>
-						<button class="btn btn-warning btn-xs">
-							<a style="color:white;" href="/admin/product/{{$producto->id}}/edit">Editar
-							</a>
-							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-							
-						</button>
-					</td>
+				
 					<td>
 
 					<form action="/admin/product/{{ $producto->id }}/delete" method="post">
 					    {{ csrf_field() }}
-					    {{ method_field('DELETE') }}
 					    <div class="form-group">
-				        <button type="submit" class="btn btn-danger btn-xs">DELETE</button>
+					        <button type="submit" class="btn btn-danger btn-xs">DELETE
+					        </button>
 					    </div>
 					</form>
 
@@ -71,6 +65,27 @@
 
 @endsection
 
+<script type="text/javascript">
+addEventListener('load', function(){
+	var price=document.querySelector('.price');
+	var priceValue= price.innerText;
+	var qty=document.querySelector('.qty input');
+	var qtyValue= qty.value;
+	var b=document.querySelector('.total');
+	b.innerText=qtyValue*priceValue;
+	qty.addEventListener('blur' && 'change', function(){
+		var x=document.querySelector('.qty input').value;
+		console.log(x);
+		b.innerText=x*priceValue;
+		
+	})
+	
+
+		
+	
 
 
- --}}
+
+});
+	
+</script>

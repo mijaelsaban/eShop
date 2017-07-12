@@ -26,9 +26,23 @@
                         <input type="number" name="price" id="rating" value="{{old('price')}}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="premios">Descripción</label>
-                        <input type="text" name="description" value="{{old('description')}}" id="premios" class="form-control">
+                        <label for="description">Descripción</label>
+                        <input type="text" name="description" value="{{old('description')}}" id="description" class="form-control">
                     </div>
+                    
+                        
+                    <div class="form-group">
+                        <label for="category">Elige la Categoria</label>
+                          <select name="category" class="form-control" id="exampleSelect1">
+                          {{-- el primer value debe ser vacio--}}
+                          <option selected="selected">---</option>
+                          @foreach ($categorias as $categoria)
+                          <option value="{{$categoria->id}}">{{$categoria->name}}</option>
+                         @endforeach
+                        </select>   
+                    </div>
+                    
+
                     <div class="form-group form-control-file">
                         <label for="estreno">Imagen</label>
                         <input type="file" name="imagePath" id="img" class="form-control">

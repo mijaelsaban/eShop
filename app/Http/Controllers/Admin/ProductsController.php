@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Categorie;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $categorias=Categorie::all();
         
-        return view('admin/products/create');
+        return view('admin/products/create', compact('categorias'));
     }
 
     /**
@@ -57,7 +59,8 @@ class ProductsController extends Controller
             'title'=>$request->input('title'),
             'price'=>$request->input('price'),
             'description'=>$request->input('description'),
-            'imagePath'=>str_slug($request->input('imagePath'))
+            'imagePath'=>str_slug($request->input('imagePath')), 
+            'categorie_id'=>$request->input('category')
             ]);
 
         // guardar la imagen

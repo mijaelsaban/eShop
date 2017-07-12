@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -13,8 +14,21 @@ class CartController extends Controller
      */
     public function index()
     {
+        if (session('carrito')) {
+           $var=session('carrito');
+        foreach ($var as $id) {
+            $producto=Product::find($id);    
+            $productos[]=$producto;
+
+        }
+                
+
+        return view('shop/cart', compact('productos'));  
+        }
+        else {
+            return redirect('shop/index');
+        }
         
-        return view('shop/cart');
     }
 
     /**

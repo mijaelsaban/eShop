@@ -1,18 +1,22 @@
 @extends('layouts.master')
 @section('content')
+<h1>Panel de Administracion</h1>
 
 <div class="well well-sm">
 	<h4 class="text-right"> <a href="/shop/index">Ir al Eshop</a> </h4>
 	<h3 class="text-right"><a href="/admin/product/create">Crear Nuevo Producto</a></h3>
 </div>
+{{-- {{dd($categories)}} --}}
 
 	<div class="container"></div>
 		<ul class="nav nav-pills">
 		  <li role="presentation" class="active"><a href="#">Todos Los Productos</a></li>
-		  <li role="presentation"><a href="#">Smartphones</a></li>
+		  <li role="presentation"><a href="/admin/categories">Todas Las Categorias</a></li>
+		  <li role="presentation"><a href="/admin/categories">Smartphones</a></li>
 		  <li role="presentation"><a href="#">Tablets</a></li>
 		  <li role="presentation"><a href="#">Foto/Video</a></li>
 		  <li role="presentation"><a href="#">Accesorios</a></li>
+		  
 		</ul>
 	</div>
 

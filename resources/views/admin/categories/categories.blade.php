@@ -2,12 +2,16 @@
 
 
 @section('content')
-<h1>Categorias</h1>
-{{ $categories }}
-{{ dd($categories->products) }}
+<a href="/admin/products">Volver a Productos</a>
+<ul>
+	<li> <a href="">Crear una Categoria</a></li>
+</ul>
+<h1>Todas las Categorias</h1>
+
+{{-- {{ dd($categories->products) }} --}}
 
 @foreach ($categories as $categorie)
-	<li style="font-size: 20px;"><a href=""> {{$categorie->name}} </a></li>
+	<li style="font-size: 20px;"><a href="/admin/categories/{{ $categorie->id }}"> {{$categorie->name}} </a> edit delete </li>
 @endforeach
 
 @endsection
