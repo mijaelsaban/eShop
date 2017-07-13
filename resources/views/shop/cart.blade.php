@@ -39,7 +39,7 @@
 						<input style="width: 40px;" type="number" name="qty" value="1">
 					</td>
 					<td class="total">
-						{{ $producto->price * 4  }}
+						
 					</td>
 				
 					<td>
@@ -63,6 +63,10 @@
 	</table>
   </div>
 
+  <div>
+  	<button style="width: 50%; transform: translateX(-50%); margin: auto 50%" class="btn-group btn-lg btn-success">CHECKOUT</button>
+  </div>
+
 @endsection
 
 <script type="text/javascript">
@@ -72,18 +76,15 @@ addEventListener('load', function(){
 	var qty=document.querySelector('.qty input');
 	var qtyValue= qty.value;
 	var b=document.querySelector('.total');
+	
 	b.innerText=qtyValue*priceValue;
-	qty.addEventListener('blur' && 'change', function(){
-		var x=document.querySelector('.qty input').value;
-		console.log(x);
-		b.innerText=x*priceValue;
-		
-	})
-	
 
+		qty.addEventListener('blur' && 'change', function(){
+			var x=document.querySelector('.qty input').value;
+			b.innerText=x*priceValue;
+			
+		})
 		
-	
-
 
 
 });

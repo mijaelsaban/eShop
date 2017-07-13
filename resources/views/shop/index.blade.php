@@ -35,28 +35,30 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul style="display: inline-flex;" class="nav navbar-nav">
         @if (session('carrito'))
-        @foreach ($cart as $car)
-        <p>{{$car}}</p>
-     
-
+        @foreach ($productos as $pr)
+        <div style="margin: auto;">
+          <p><span style="color: brown">Nombre</span> {{$pr->title}} <span style="color: brown">Precio: </span>${{$pr->price}}</p>
             <form  class="" action="/mija" method="post">
             {{ csrf_field() }}
-
-               <button class="btn btn-success" type="submit" name="" value={{ $car }}>
+               <button class="btn btn-success" type="submit" name="" value={{ $pr->id }}>
                   <i style='font-size: 20px; float: right' class="material-icons">remove_shopping_cart</i>   
                </button> 
             </form>
+        </div>
 
-        </span></a>
         @endforeach
         @endif
 
 
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" action="/cart">
         <button type="submit" class="btn btn-success">Comprar</button>
+        @if (session('carrito'))
+        {{--  <span class="label label-info">Total = ${{ $pr->sum('price') }} </span> --}}
+        @endif
+        
       </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -107,7 +109,7 @@
                         <img src="https://www.neto.com.au/assets/images/default_product.gif" alt="iphone" style="max-height: 150px;" class="img-responsive">
                       @endempty
                         <div class="caption">
-                              <h3>{{$product->title}}</h3>
+                              <h3>{{ $product->title }}</h3>
                                  <p class="description">{{$product->description}}</p>
                             <div class="clearfix"> 
                                   <div class="pull-left price">
@@ -117,7 +119,7 @@
                                 <form class="" action="" method="post">
                             {{ csrf_field() }}
 
-                                <button class="btn btn-success pull-right" type="submit" name="id" value="{{ $product->id }}">ADD TO CART BTN</button>
+                                <button class="btn btn-success pull-right" type="submit" name="id" value="{{ $product->id }}">ADD TO CART</button>
                                 </form>
                             </div>
                         </div>
