@@ -23,8 +23,10 @@
 // });
 Route::get('/shop/index', 'ProductController@index');
 Route::get('/shop/index/order/{order}', 'ProductController@order');
-Route::post('/shop/index', 'ProductController@cart');
+Route::post('/shop/index', 'ProductController@cart' );
 Route::get('/cart', 'CartController@index');
+
+
 Route::post('/mija', 'ProductController@destroy');
 Route::post('/destruir', 'ProductController@destroyAll');
 

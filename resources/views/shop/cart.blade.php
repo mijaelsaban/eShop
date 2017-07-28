@@ -28,7 +28,7 @@
 
 		 <tbody>
 			@forelse($productos as $producto)
-				<tr>
+				<tr class="producto">
 					<td>
 						<a href="/admin/products/{{$producto->id}}">{{ $producto->title }}</a>
 					</td>
@@ -70,21 +70,44 @@
 @endsection
 
 <script type="text/javascript">
-addEventListener('load', function(){
-	var price=document.querySelector('.price');
-	var priceValue= price.innerText;
-	var qty=document.querySelector('.qty input');
-	var qtyValue= qty.value;
-	var b=document.querySelector('.total');
-	
-	b.innerText=qtyValue*priceValue;
+window.onload = function () {
+		document.querySelectorAll('tr.producto').forEach(function (tr) {
+		var price = tr.querySelector('.price').innerText
+		var input = tr.querySelector('.qty input')
+		var total = tr.querySelector('.total')
 
-		qty.addEventListener('blur' && 'change', function(){
-			var x=document.querySelector('.qty input').value;
-			b.innerText=x*priceValue;
+			function actualizarTotal () {
+				// debugger;
+				total.innerText = parseInt(price || 0) *  parseInt(input.value || 0)
 			
-		})
+			}
+
 		
+		input.addEventListener("keydown", actualizarTotal)
+		input.addEventListener("change", actualizarTotal)
+		actualizarTotal()
+		
+	
+
+		})
+			var x=document.querySelectorAll('.total')
+		
+		var tot=0
+		for(var i = 0; i< x.length;  i++){
+			tot+=parseInt(x[i].innerText);
+			//
+		}
+		console.log(tot)
+		var div= document.createElement('div')
+		div.append('hola')
+	
+
+		
+}
+
+addEventListener('load', function(){
+
+
 
 
 });

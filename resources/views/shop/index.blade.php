@@ -22,7 +22,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
       <i class="material-icons">shopping_cart</i> 
-      <span class="badge"> {{ count(session('carrito')) }} </span>
+        <span class="badge"> {{ count(session('carrito')) }} </span>
        <a href="/cart">Shopping Cart</a>
 
         <span class="sr-only">Toggle navigation</span>
@@ -36,10 +36,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul style="display: inline-flex;" class="nav navbar-nav">
-        @if (session('carrito'))
+        @if (session('carrito') && isset($productos) )
         @foreach ($productos as $pr)
         <div style="margin: auto;">
-          <p><span style="color: brown">Nombre</span> {{$pr->title}} <span style="color: brown">Precio: </span>${{$pr->price}}</p>
+          <p><span style="color: brown">Nombre</span> {{ $pr->title }} <span style="color: brown">Precio: </span>${{$pr->price}}</p>
             <form  class="" action="/mija" method="post">
             {{ csrf_field() }}
                <button class="btn btn-success" type="submit" name="" value={{ $pr->id }}>

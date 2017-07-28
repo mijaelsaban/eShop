@@ -21,8 +21,18 @@ class ProductController extends Controller
         $products=Product::all();
         $products=Product::paginate(12);
         $categorias=Categorie::all();
+      if (session('carrito')) {
+           $var=session('carrito');
+            foreach ($var as $id) {
+                $producto=Product::find($id);    
+                $productos[]=$producto;
+
+            }
+    
+        }
+
     // 'urlImage',
-        return view('shop.index', compact('products',  'categorias'));
+        return view('shop.index', compact('products',  'categorias', 'productos'));
     }
 
 
@@ -41,13 +51,13 @@ class ProductController extends Controller
 
          if (session('carrito')) {
            $var=session('carrito');
-        foreach ($var as $id) {
-            $producto=Product::find($id);    
-            $productos[]=$producto;
+            foreach ($var as $id) {
+                $producto=Product::find($id);    
+                $productos[]=$producto;
 
-        }
+            }
+
     }
-
         //$product=Product::find($productoElegido);    
         
 //usuario-    compra-item-producto
